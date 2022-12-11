@@ -13,27 +13,28 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent {
   invalidLogin?: boolean;
 
-  url = configurl.apiServer.url + '/api/authentication/';
+  url = configurl.apiServer.url+"/admin" ;
 
   constructor(private router: Router, private http: HttpClient,private jwtHelper : JwtHelperService,
     private toastr: ToastrService) { }
 
-  public login = (form: NgForm) => {
-    const credentials = JSON.stringify(form.value);
-    this.http.post(this.url +"login", credentials, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      })
-    }).subscribe(response => {
-      const token = (<any>response).token;
-      localStorage.setItem("jwt", token);
-      this.invalidLogin = false;
-      this.toastr.success("Logged In successfully");
-      this.router.navigate(["/product"]);
-    }, err => {
-      this.invalidLogin = true;
-    });
-  }
+    public login = (form: NgForm) => {
+      const credentials = JSON.stringify(form.value);
+      this.http.post(this.url, credentials, {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json"
+        })
+      }).subscribe(response => {
+        
+        const token = (<any>response).data;
+        localStorage.setItem("jwt", token);
+        this.invalidLogin = false;
+        this.toastr.success("Logged In successfully");
+        this.router.navigate(["/employee"]);
+      }, err => {
+        this.invalidLogin = true;
+      });
+    }
 
   isUserAuthenticated() {
     const token = localStorage.getItem("jwt");

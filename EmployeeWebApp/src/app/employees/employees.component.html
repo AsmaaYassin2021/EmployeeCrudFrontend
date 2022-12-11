@@ -1,1 +1,101 @@
-<p>employees works!</p>
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Employee Information</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logOut()">Logout</a>
+        </li>
+        <li *ngIf="!isUserAuthenticated()" class="nav-item active">
+          <a class="nav-link" routerLink="/employee">Employees</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <form class="form-horizontal" [formGroup]="employeeForm">
+      <h1 style="text-align: center;">Employee Information</h1>
+      <div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">First Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtFirstName" formControlName="firstName"
+            placeholder="First Name">
+        </div>
+      </div>
+      <br />
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Last Name :</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtLastName" formControlName="lastName"
+            placeholder="Last Name">
+        </div>
+      </div>
+      <br />
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Phone :</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtPhone" formControlName="phone" placeholder="Phone">
+        </div>
+      </div>
+      <br />
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Job Title :</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txtJobTitle" formControlName="jobTitle" placeholder="Job Title">
+        </div>
+      </div>
+      <br />
+       <div class="form-group">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <button type="submit" class="btn btn-primary" (click)="AddEmployee(employeeForm.value)">Submit</button>
+            </div>
+            <div class="col-sm">
+              <button type="submit" class="btn btn-primary" (click)="UpdateEmployee(employeeForm.value)">Update</button>
+            </div>
+            <div class="col-sm">
+              <button type="submit" class="btn btn-primary" (click)="Clear(employeeForm.value)">Clear</button>
+            </div>
+          </div>
+        </div>
+      <br />
+      </div>
+      <div>
+        <div class="alert alert-success" style="text-align: center;"><b>Employee List</b></div>
+        <div class="table-responsive" style="text-align: center;">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Job Title</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let emp of EmployeeList ">
+             
+              <td>{{emp.firstName}}</td>
+              <td>{{emp.lastName}}</td>
+              <td>{{emp.phone}}</td>
+              <td>{{emp.jobTitle}}</td>
+              <td><button type="button" class="btn1" matTooltip="Click Edit Button" (click)='EmployeeDetailsToEdit(emp.id)'>Edit</button>
+                |
+                <button type="button" class="btn1" matTooltip="Click Delete Button" (click)="DeleteEmployee(emp.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+    </form>

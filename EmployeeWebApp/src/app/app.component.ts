@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'EmployeeWebApp';
+  // ngOnInit() {
+  //   localStorage.removeItem("jwt");
+  //   localStorage.clear();
+
+  // }
+  
 }
